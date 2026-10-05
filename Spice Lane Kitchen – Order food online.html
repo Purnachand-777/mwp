@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spice Lane Kitchen – Order food online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#fbfaf7;--card:#fff;--ink:#1c1f27;--mute:#585e6b;--line:#d9d6cc;--acc:#b82c18;--acc-ink:#fff;--ok:#17613f;--okbg:#e3f3ea;--warn:#8a1c0e;--fs:100%;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171c;--card:#1f222a;--ink:#f1efe9;--mute:#b4b8c2;--line:#3a3e49;--acc:#ff8a73;--acc-ink:#1a0805;--ok:#6fd9a4;--okbg:#17342a;--warn:#ffa595}}
+:root[data-theme="dark"]{--bg:#15171c;--card:#1f222a;--ink:#f1efe9;--mute:#b4b8c2;--line:#3a3e49;--acc:#ff8a73;--acc-ink:#1a0805;--ok:#6fd9a4;--okbg:#17342a;--warn:#ffa595}
+*,*::before,*::after{box-sizing:inherit}
+html{font-size:var(--fs);scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 5px var(--bg)}
+.skip{position:absolute;left:8px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:8px;z-index:50}
+.skip:focus{top:8px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:10px 16px;flex-wrap:wrap}
+.brand{font-weight:800;font-size:1.25rem;margin-right:auto;letter-spacing:-.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{min-height:44px;min-width:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:transparent;cursor:pointer;font-weight:600}
+.btn:hover{background:var(--line)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.btn.pri:hover{filter:brightness(.93)}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.badge{display:inline-block;min-width:1.5em;padding:0 6px;margin-left:6px;border-radius:99px;background:var(--acc);color:var(--acc-ink);text-align:center;font-size:.85rem}
+main{max-width:860px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.9rem;line-height:1.15;margin:8px 0 4px;letter-spacing:-.02em}
+h1:focus{outline:none}
+h2{font-size:1.2rem;margin:20px 0 8px}
+.sub{color:var(--mute);margin:0 0 16px}
+.tools{display:grid;gap:12px;margin-bottom:12px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input[type=text],input[type=search],input[type=tel],textarea,select{width:100%;min-height:44px;padding:8px 12px;border:2px solid var(--mute);border-radius:10px;background:var(--card)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:6px 14px;border-radius:99px;border:2px solid var(--line);background:var(--card);cursor:pointer;font-weight:600}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+ul.list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.pic{font-size:2.4rem;text-align:center;background:var(--bg);border-radius:12px;padding:6px 0}
+.item h3{margin:0;font-size:1.05rem}
+.item p{margin:2px 0;color:var(--mute);font-size:.92rem}
+.tag{font-size:.8rem;font-weight:700;color:var(--ok)}
+.tag.nv{color:var(--warn)}
+.price{font-weight:700}
+.step{display:inline-flex;align-items:center;gap:6px}
+.step output{min-width:2ch;text-align:center;font-weight:700}
+.empty{padding:28px;text-align:center;border:2px dashed var(--line);border-radius:14px;color:var(--mute)}
+dialog{width:min(520px,calc(100% - 24px));max-height:90vh;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:6px 0}
+.row.tot{border-top:2px solid var(--ink);margin-top:6px;padding-top:10px;font-weight:800;font-size:1.1rem}
+fieldset{border:1px solid var(--line);border-radius:12px;margin:0 0 16px;padding:10px 14px;background:var(--card)}
+legend{font-weight:700;padding:0 6px}
+.opt{display:flex;gap:10px;align-items:center;min-height:44px;font-weight:500;margin:0}
+.opt input{width:22px;height:22px;accent-color:var(--acc)}
+.field{margin-bottom:14px}
+.err{color:var(--warn);font-weight:600;margin:4px 0 0}
+input[aria-invalid=true]{border-color:var(--warn)}
+.summary{border:2px solid var(--warn);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.summary ul{margin:6px 0 0;padding-left:20px}
+.steps{list-style:none;margin:16px 0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mute)}
+.steps li[data-s=done]{color:var(--ink)}
+.steps li[data-s=now]{border:2px solid var(--acc);color:var(--ink);font-weight:700}
+.dot{width:26px;height:26px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:.85rem;flex:none}
+li[data-s=done] .dot{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+li[data-s=now] .dot{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);transition:width .6s}
+.note{background:var(--okbg);border-radius:12px;padding:12px 16px}
+[hidden]{display:none!important}
+@media (max-width:520px){.item{grid-template-columns:48px 1fr}.item .act{grid-column:1/-1;justify-self:end}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top">
+  <div class="brand">Spice Lane Kitchen</div>
+  <button class="btn" id="ordersBtn" type="button">My orders</button>
+  <button class="btn" id="size" type="button" aria-label="Increase text size">A+</button>
+  <button class="btn" id="theme" type="button" aria-pressed="false">Dark mode</button>
+  <button class="btn pri" id="cartBtn" type="button" aria-haspopup="dialog">Cart<span class="badge" id="count" aria-hidden="true">0</span><span class="vh" id="countSr">, empty</span></button>
+</header>
+<main id="main"></main>
+<div class="vh" role="status" aria-live="polite" id="live"></div>
+
+<dialog id="cart" aria-labelledby="cartTitle">
+  <h2 id="cartTitle" style="margin-top:0">Your cart</h2>
+  <div id="cartBody"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px">
+    <button class="btn" type="button" id="cartClose">Keep browsing</button>
+    <button class="btn pri" type="button" id="toCheckout">Go to checkout</button>
+  </div>
+</dialog>
+
+<dialog id="opt" aria-labelledby="optT"><div id="optBody"></div></dialog>
+<script>
+const MENU=[
+{id:1,n:"Ghee Podi Idli",d:"Four soft idlis tossed in gingelly oil and spiced lentil powder.",p:90,c:"Breakfast",v:1,e:"🍚"},
+{id:2,n:"Masala Dosa",d:"Crisp rice crepe with potato masala, coconut chutney and sambar.",p:110,c:"Breakfast",v:1,e:"🥞"},
+{id:3,n:"Egg Dosa",d:"Thin dosa topped with a spiced egg, served with chutney.",p:120,c:"Breakfast",v:0,e:"🍳"},
+{id:4,n:"Paneer Butter Masala",d:"Paneer in a creamy tomato gravy. Contains dairy and cashew.",p:230,c:"Mains",v:1,e:"🍛"},
+{id:5,n:"Chicken Chettinad",d:"Pepper-forward chicken curry with roasted spices. Medium-hot.",p:260,c:"Mains",v:0,e:"🍗"},
+{id:6,n:"Veg Biryani",d:"Seeru samba rice with vegetables and raita.",p:190,c:"Mains",v:1,e:"🍲"},
+{id:7,n:"Chicken Biryani",d:"Slow-cooked with whole spices, served with raita and egg.",p:240,c:"Mains",v:0,e:"🍛"},
+{id:8,n:"Malabar Parotta (2)",d:"Layered flaky flatbread, best with a curry.",p:60,c:"Sides",v:1,e:"🫓"},
+{id:9,n:"Curd Rice",d:"Cooling curd rice tempered with mustard and curry leaf.",p:80,c:"Sides",v:1,e:"🥣"},
+{id:10,n:"Filter Coffee",d:"Decoction coffee with frothed milk. Contains dairy.",p:45,c:"Drinks",v:1,e:"☕"},
+{id:11,n:"Fresh Lime Soda",d:"Sweet, salted or mixed. Add a note in checkout.",p:55,c:"Drinks",v:1,e:"🍋"},
+{id:12,n:"Payasam",d:"Warm vermicelli payasam with cashew and raisins. Contains dairy.",p:70,c:"Desserts",v:1,e:"🍮"}];
+MENU.forEach(m=>m.u="Indian");
+MENU.push(
+{id:13,n:"Butter Naan (2)",d:"Tandoor-baked soft flatbread brushed with butter.",p:70,c:"Sides",v:1,e:"🫓",u:"Indian"},
+{id:14,n:"Dal Tadka",d:"Yellow lentils tempered with garlic, cumin and dried chilli.",p:150,c:"Mains",v:1,e:"🍲",u:"Indian"},
+{id:15,n:"Mutton Rogan Josh",d:"Kashmiri-style mutton curry with a deep red chilli gravy.",p:320,c:"Mains",v:0,e:"🍖",u:"Indian"},
+{id:16,n:"Punjabi Samosa (2)",d:"Crisp pastry filled with spiced potato and peas, with mint chutney.",p:50,c:"Starters",v:1,e:"🥟",u:"Indian"},
+{id:17,n:"Mango Lassi",d:"Chilled yogurt drink blended with mango. Contains dairy.",p:80,c:"Drinks",v:1,e:"🥭",u:"Indian"},
+{id:18,n:"Classic Cheeseburger",d:"Grilled chicken patty with cheddar, lettuce and pickles in a toasted bun.",p:249,c:"Burgers",v:0,e:"🍔",u:"American"},
+{id:19,n:"Veggie Burger",d:"Crisp vegetable and bean patty with lettuce, tomato and house sauce.",p:199,c:"Burgers",v:1,e:"🍔",u:"American"},
+{id:20,n:"BBQ Chicken Wings",d:"Six wings glazed in smoky barbecue sauce, with a ranch dip.",p:279,c:"Starters",v:0,e:"🍗",u:"American"},
+{id:21,n:"Mac and Cheese",d:"Baked macaroni in a three-cheese sauce with a crumb top. Contains dairy and gluten.",p:220,c:"Mains",v:1,e:"🧀",u:"American"},
+{id:22,n:"French Fries",d:"Skin-on fries with sea salt and ketchup.",p:120,c:"Sides",v:1,e:"🍟",u:"American"},
+{id:23,n:"Chocolate Brownie",d:"Warm fudge brownie. Contains egg, dairy, gluten and nuts.",p:130,c:"Desserts",v:1,e:"🍫",u:"American"},
+{id:24,n:"Veg Manchurian",d:"Fried vegetable balls in a garlic soy gravy.",p:180,c:"Starters",v:1,e:"🥡",u:"Chinese"},
+{id:25,n:"Chicken Hakka Noodles",d:"Wok-tossed noodles with chicken, cabbage and spring onion.",p:210,c:"Mains",v:0,e:"🍜",u:"Chinese"},
+{id:26,n:"Kung Pao Chicken",d:"Chicken with peanuts, dried chilli and Sichuan pepper. Hot. Contains peanuts.",p:270,c:"Mains",v:0,e:"🌶️",u:"Chinese"},
+{id:27,n:"Veg Spring Rolls (4)",d:"Crisp rolls filled with cabbage, carrot and glass noodles.",p:140,c:"Starters",v:1,e:"🥟",u:"Chinese"},
+{id:28,n:"Hot and Sour Soup",d:"Peppery vegetable soup with mushroom and tofu.",p:110,c:"Soups",v:1,e:"🥣",u:"Chinese"},
+{id:29,n:"Mapo Tofu",d:"Soft tofu in a spicy bean sauce, vegetarian version. Served with rice.",p:200,c:"Mains",v:1,e:"🍲",u:"Chinese"},
+{id:30,n:"Cucumber Avocado Roll (8)",d:"Sushi rice and nori with cucumber and avocado. Contains soy.",p:260,c:"Sushi",v:1,e:"🍣",u:"Japanese"},
+{id:31,n:"Salmon Nigiri (4)",d:"Hand-pressed rice topped with fresh salmon. Contains raw fish and soy.",p:380,c:"Sushi",v:0,e:"🍣",u:"Japanese"},
+{id:32,n:"Chicken Katsu Curry",d:"Panko-fried chicken cutlet with mild Japanese curry and rice.",p:320,c:"Mains",v:0,e:"🍛",u:"Japanese"},
+{id:33,n:"Vegetable Miso Soup",d:"Miso broth with tofu, wakame and spring onion, made with kombu stock. Contains soy.",p:90,c:"Soups",v:1,e:"🍵",u:"Japanese"},
+{id:34,n:"Chicken Shoyu Ramen",d:"Wheat noodles in soy broth with chicken, egg and greens.",p:340,c:"Mains",v:0,e:"🍜",u:"Japanese"},
+{id:35,n:"Edamame",d:"Steamed soybeans with sea salt.",p:140,c:"Starters",v:1,e:"🫛",u:"Japanese"},
+{id:36,n:"Matcha Ice Cream",d:"Two scoops of green tea ice cream. Contains dairy.",p:150,c:"Desserts",v:1,e:"🍨",u:"Japanese"});
+const CATS=["All","Indian","American","Chinese","Japanese"];
+const $=s=>document.querySelector(s),main=$("#main"),live=$("#live");
+const money=n=>"₹"+n.toFixed(2).replace(/\.00$/,"");
+const say=t=>{live.textContent="";setTimeout(()=>live.textContent=t,50)};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const MIN=149,SPICY=["Mains","Starters","Soups"],CUST=m=>!["Drinks","Desserts"].includes(m.c);
+const S={cart:[],uid:0,cat:"All",q:"",veg:false,view:"menu",order:null,promo:false,f:{mode:"Delivery",pay:"UPI",tip:10,when:"ASAP"}};
+let timer;
+const M=id=>MENU.find(x=>x.id===id),nm=l=>M(l.id).n;
+const unit=l=>{const m=M(l.id);return m.p+(l.size==="Large"?Math.round(m.p*.35/5)*5:0)};
+const qty=id=>S.cart.filter(l=>l.id===id).reduce((a,l)=>a+l.q,0);
+const count=()=>S.cart.reduce((a,l)=>a+l.q,0);
+const desc=l=>[l.size,l.spice,l.note&&"Note: "+l.note].filter(Boolean).join(", ");
+const lineD=l=>desc(l)?`<br><span class="sub" style="margin:0">${esc(desc(l))}</span>`:"";
+function addLine(id,o={}){const l=S.cart.find(x=>x.id===id&&x.size===o.size&&x.spice===o.spice&&x.note===o.note);
+l?l.q++:S.cart.push({uid:++S.uid,id,q:1,...o});say(`${M(id).n} added. ${count()} items in cart.`)}
+function lineQ(uid,d){const l=S.cart.find(x=>x.uid===uid);l.q+=d;const n=nm(l);
+if(l.q<1)S.cart=S.cart.filter(x=>x!==l);say(l.q<1?`${n} removed from cart`:`${n}, quantity ${l.q}`)}
+function totals(){const sub=S.cart.reduce((a,l)=>a+unit(l)*l.q,0),dl=S.f.mode==="Delivery"&&sub>0;
+const disc=S.promo?Math.round(sub*.1):0,fee=dl?(sub-disc>=400?0:35):0,tax=Math.round((sub-disc)*.05),tip=dl?+S.f.tip:0;
+return{sub,disc,fee,tax,tip,total:sub-disc+fee+tax+tip}}
+const step=(l,b)=>{const n=esc(nm(l)+(desc(l)?" ("+desc(l)+")":""));
+return `<span class="step" role="group" aria-label="${n} quantity"><button class="btn" data-k="${b}-" data-dec="${l.uid}" aria-label="Remove one ${n}">−</button><output aria-label="Quantity">${l.q}</output><button class="btn" data-k="${b}+" data-inc="${l.uid}" aria-label="Add one more ${n}">+</button></span>`};
+function act(m){if(CUST(m)){const q=qty(m.id);return `${q?`<span class="sub" style="margin:0 8px 0 0">${q} in cart</span>`:""}<button class="btn pri" data-k="i${m.id}+" data-cust="${m.id}" aria-haspopup="dialog" aria-label="${q?"Add another ":"Add "}${esc(m.n)}, choose options">${q?"Add more":"Add"}</button>`}
+const l=S.cart.find(x=>x.id===m.id);return l?step(l,"i"+m.id):`<button class="btn pri" data-k="i${m.id}+" data-add="${m.id}" aria-label="Add ${esc(m.n)} to cart">Add</button>`}
+function keep(fn){const k=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.k;fn();
+if(k){const el=document.querySelector(`[data-k="${k}"]`)||document.querySelector(`[data-k="${k.slice(0,-1)}+"]`)||($("#cart").open&&$("#cartClose"));el&&el.focus()}}
+function sync(){keep(()=>{if(S.view==="menu")list();cartBody();if(S.view==="checkout")co()});
+const c=count();$("#count").textContent=c;$("#countSr").textContent=c?`, ${c} item${c>1?"s":""}, ${money(totals().sub)}`:", empty"}
+function go(v){S.view=v;({menu:menuView,checkout:checkoutView,track:trackView,orders:ordersView})[v]();sync();
+const h=main.querySelector("h1");h.tabIndex=-1;h.focus();window.scrollTo(0,0);document.title=h.textContent+" – Spice Lane Kitchen"}
+function menuView(){main.innerHTML=`<h1>Order from Spice Lane Kitchen</h1><p class="sub">Indian, American, Chinese and Japanese favourites. Delivery in 35–45 minutes, free above ₹400. Minimum order ${money(MIN)}.</p>
+<div class="tools"><div><label for="q">Search the menu</label><input id="q" type="search" value="${esc(S.q)}" autocomplete="off"></div>
+<div role="group" aria-label="Filter by cuisine" class="chips">${CATS.map(c=>`<button class="chip" type="button" data-cat="${c}" aria-pressed="${S.cat===c}">${c}</button>`).join("")}<button class="chip" type="button" id="veg" aria-pressed="${S.veg}">Vegetarian only</button></div></div>
+<h2 id="rh" tabindex="-1"></h2><ul class="list" id="list" aria-labelledby="rh"></ul>`;list()}
+function list(){const q=S.q.trim().toLowerCase();
+const r=MENU.filter(m=>(S.cat==="All"||m.u===S.cat)&&(!S.veg||m.v)&&(!q||(m.n+m.d).toLowerCase().includes(q)));
+$("#rh").textContent=`${S.cat==="All"?"All dishes":S.cat+" dishes"} (${r.length})`;
+$("#list").innerHTML=r.length?r.map(m=>`<li class="item"><div class="pic" aria-hidden="true">${m.e}</div><div><h3>${m.n}</h3><p>${m.d}</p><span class="tag ${m.v?"":"nv"}">${m.v?"Vegetarian":"Non-vegetarian"}</span> <span class="price">${money(m.p)}</span></div><div class="act">${act(m)}</div></li>`).join(""):`<li class="empty">No dishes match. Try a different word or clear the filters.</li>`}
+function openOpt(id){const m=M(id),ex=Math.round(m.p*.35/5)*5;
+$("#optBody").innerHTML=`<h2 id="optT" style="margin-top:0">${esc(m.n)}</h2><p class="sub">${m.d}</p><form id="of" data-id="${id}"><fieldset><legend>Portion</legend><label class="opt"><input type="radio" name="size" value="Regular" checked>Regular, ${money(m.p)}</label><label class="opt"><input type="radio" name="size" value="Large">Large, ${money(m.p+ex)}</label></fieldset>${SPICY.includes(m.c)?`<fieldset><legend>Spice level</legend>${["Mild","Medium","Hot"].map((x,i)=>`<label class="opt"><input type="radio" name="spice" value="${x}" ${i===1?"checked":""}>${x}</label>`).join("")}</fieldset>`:""}<div class="field"><label for="onote">Special instructions (optional)</label><input id="onote" name="onote" type="text" maxlength="80" autocomplete="off"></div><div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap"><button class="btn" type="button" id="optCancel">Cancel</button><button class="btn pri" type="submit">Add to cart</button></div></form>`;$("#opt").showModal()}
+function cartBody(){const b=$("#cartBody");
+if(!S.cart.length){b.innerHTML=`<p class="empty">Your cart is empty. Add a dish from the menu to start your order.</p>`;$("#toCheckout").disabled=true;return}
+const t=totals(),need=MIN-t.sub,free=400-(t.sub-t.disc);
+b.innerHTML=S.cart.map(l=>`<div class="row"><div><strong>${nm(l)}</strong>${lineD(l)}<br>${money(unit(l))} each</div><div style="display:flex;gap:8px;align-items:center">${step(l,"c"+l.uid)}<span class="price" style="min-width:4.5em;text-align:right">${money(unit(l)*l.q)}</span></div></div>`).join("")+
+`<div class="row"><span>Subtotal</span><span>${money(t.sub)}</span></div>`+(need>0?`<p class="err" role="status">Add ${money(need)} more to reach the ${money(MIN)} minimum order.</p>`:free>0?`<p class="note">Add ${money(free)} more for free delivery.</p>`:`<p class="note">You get free delivery.</p>`);
+$("#toCheckout").disabled=need>0}
+function bill(){const t=totals();return `<div class="row"><span>Subtotal</span><span>${money(t.sub)}</span></div>${t.disc?`<div class="row"><span>Promo WELCOME10</span><span>−${money(t.disc)}</span></div>`:""}${S.f.mode==="Delivery"?`<div class="row"><span>Delivery fee</span><span>${t.fee?money(t.fee):"Free"}</span></div>`:""}<div class="row"><span>GST (5%)</span><span>${money(t.tax)}</span></div>${t.tip?`<div class="row"><span>Rider tip</span><span>${money(t.tip)}</span></div>`:""}<div class="row tot"><span>Total to pay</span><span>${money(t.total)}</span></div>`}
+const radios=(n,lg,o,cur,id)=>`<fieldset ${id?`id="${id}"`:""}><legend>${lg}</legend>${o.map(([v,l])=>`<label class="opt"><input type="radio" name="${n}" value="${v}" ${String(cur)===String(v)?"checked":""}>${l}</label>`).join("")}</fieldset>`;
+const fld=(id,lab,o={})=>`<div class="field"><label for="${id}">${lab}</label><input id="${id}" data-f="${id}" type="text" ${o.ac?`autocomplete="${o.ac}"`:'autocomplete="off"'} ${o.im?`inputmode="${o.im}"`:""} ${o.m?`maxlength="${o.m}"`:""} value="${esc(S.f[id]||"")}" ${o.d?`aria-describedby="${id}h"`:""}>${o.d?`<div class="sub" id="${id}h" style="margin:4px 0 0">${o.d}</div>`:""}</div>`;
+function slots(){const o=[],d=new Date();d.setMinutes(Math.ceil(d.getMinutes()/30)*30+60,0,0);for(let i=0;i<8;i++){o.push(d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}));d.setMinutes(d.getMinutes()+30)}return o}
+function checkoutView(){const f=S.f;
+main.innerHTML=`<h1>Checkout</h1><p class="sub">Review your order, then add your details. This is a demo: no real payment is taken.</p><div id="sum" role="alert"></div>
+<h2>Your order</h2><div id="co" tabindex="-1"></div>
+<form id="f" novalidate>${radios("mode","How would you like it?",[["Delivery","Delivery"],["Pickup","Pickup at the counter"]],f.mode)}
+<div class="field"><label for="when">When do you want it?</label><select id="when" data-f="when"><option value="ASAP">As soon as possible</option>${slots().map(s=>`<option ${f.when===s?"selected":""}>${s}</option>`).join("")}</select></div>
+${fld("name","Full name (required)",{ac:"name"})}${fld("phone","Mobile number (required)",{ac:"tel",im:"numeric",m:10,d:"10 digits. We call only if there is a problem with your order."})}
+<div id="addrWrap"><h2>Delivery address</h2>${fld("house","Flat, house or building (required)",{ac:"address-line1"})}${fld("area","Street and area (required)",{ac:"address-line2"})}${fld("landmark","Landmark (optional)")}${fld("pin","PIN code (required)",{ac:"postal-code",im:"numeric",m:6})}
+<label class="opt"><input type="checkbox" id="door" ${f.door?"checked":""}>Leave at the door (contactless)</label>
+${radios("tip","Tip for your rider",[[0,"No tip"],[10,"₹10"],[20,"₹20"],[30,"₹30"]],f.tip)}</div>
+${fld("note","Notes for the kitchen (optional)",{m:100})}
+${radios("pay","Payment method",[["UPI","UPI"],["Card","Credit or debit card"],["Cash","Cash on delivery or at the counter"]],f.pay)}
+<div id="payUpi">${fld("upi","UPI ID (required)",{d:"Example: name@upi. You approve the request in your UPI app (simulated)."})}</div>
+<div id="payCard">${fld("card","Card number (required)",{ac:"cc-number",im:"numeric",m:19,d:"Demo card: 4111 1111 1111 1111, any future expiry, any 3 digits."})}${fld("cname","Name on card (required)",{ac:"cc-name"})}${fld("exp","Expiry, MM/YY (required)",{ac:"cc-exp",m:5})}${fld("cvv","CVV (required)",{ac:"cc-csc",im:"numeric",m:4})}</div>
+<div id="payCod" class="note" style="margin-bottom:14px">Please keep the exact amount ready. You pay when the order arrives.</div>
+<div class="field"><label for="promo">Promo code (optional)</label><div style="display:flex;gap:8px"><input id="promo" type="text" autocomplete="off" aria-describedby="pm"><button class="btn" type="button" id="applyPromo">Apply</button></div><div id="pm" class="sub" style="margin:4px 0 0">${S.promo?"WELCOME10 applied: 10% off.":"Try WELCOME10 for 10% off."}</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="button" id="back">Back to menu</button><button class="btn pri" id="placeBtn" type="submit">Place order</button></div></form>`;vis();co()}
+function vis(){const f=S.f;$("#addrWrap").hidden=f.mode!=="Delivery";$("#payUpi").hidden=f.pay!=="UPI";$("#payCard").hidden=f.pay!=="Card";$("#payCod").hidden=f.pay!=="Cash"}
+function co(){const el=$("#co");if(el)el.innerHTML=S.cart.map(l=>`<div class="row"><span>${l.q} × ${nm(l)}${lineD(l)}</span><span>${money(unit(l)*l.q)}</span></div>`).join("")+bill()}
+function showErr(errs){$("#sum").innerHTML=`<div class="summary"><strong>Please fix ${errs.length} problem${errs.length>1?"s":""}:</strong><ul>${errs.map(e=>`<li><a href="#${e[0]}">${e[1]}</a></li>`).join("")}</ul></div>`;
+document.querySelectorAll("[data-f]").forEach(el=>el.setAttribute("aria-invalid",errs.some(e=>e[0]===el.id)));
+const el=$("#"+errs[0][0]);el&&el.focus();say(`${errs.length} problem${errs.length>1?"s":""} found in the form`)}
+const luhn=n=>{let s=0,d=false;for(let i=n.length-1;i>=0;i--){let x=+n[i];if(d){x*=2;if(x>9)x-=9}s+=x;d=!d}return s%10===0};
+function validate(){const f=S.f,e=[],t=totals(),v=k=>(f[k]||"").trim();
+if(t.sub<MIN)e.push(["co",`Add ${money(MIN-t.sub)} more to reach the ${money(MIN)} minimum order`]);
+if(!v("name"))e.push(["name","Enter your full name"]);
+if(!/^[6-9]\d{9}$/.test(v("phone")))e.push(["phone","Enter a 10-digit mobile number starting with 6, 7, 8 or 9"]);
+if(f.mode==="Delivery"){if(v("house").length<2)e.push(["house","Enter your flat, house or building"]);if(v("area").length<3)e.push(["area","Enter your street and area"]);if(!/^[1-9]\d{5}$/.test(v("pin")))e.push(["pin","Enter a 6-digit PIN code"])}
+if(f.pay==="UPI"&&!/^[\w.\-]{2,}@[a-zA-Z]{2,}$/.test(v("upi")))e.push(["upi","Enter a valid UPI ID, for example name@upi"]);
+if(f.pay==="Card"){const n=v("card").replace(/\s/g,"");
+if(!/^\d{13,19}$/.test(n)||!luhn(n))e.push(["card","Enter a valid card number"]);
+if(!v("cname"))e.push(["cname","Enter the name on the card"]);
+const m=v("exp").match(/^(0[1-9]|1[0-2])\/(\d{2})$/);if(!m||new Date(2000+ +m[2],+m[1],1)<=new Date())e.push(["exp","Enter a future expiry date as MM/YY"]);
+if(!/^\d{3,4}$/.test(v("cvv")))e.push(["cvv","Enter the 3 or 4 digit CVV"])}
+return e}
+function hist(){try{return JSON.parse(localStorage.getItem("sl-orders")||"[]")}catch(e){return[]}}
+function save(o,status){try{const h=hist().filter(x=>x.no!==o.no);h.unshift({no:o.no,at:o.at,total:o.total,status,lines:o.lines});localStorage.setItem("sl-orders",JSON.stringify(h.slice(0,10)))}catch(e){}}
+function place(){const b=$("#placeBtn");b.disabled=true;b.textContent=S.f.pay==="Cash"?"Placing order…":"Processing payment…";say(b.textContent);
+setTimeout(()=>{const f=S.f,t=totals(),dl=f.mode==="Delivery";
+const o={no:"SL"+Math.floor(10000+Math.random()*90000),stage:0,mode:f.mode,when:f.when,total:t.total,bill:bill(),lines:S.cart.map(l=>({...l})),at:Date.now(),otp:String(1000+Math.floor(Math.random()*9000)),rider:["Arun K.","Divya S.","Imran P.","Meena R."][Math.floor(Math.random()*4)],
+pay:f.pay==="Card"?"Card ending "+f.card.replace(/\D/g,"").slice(-4):f.pay==="UPI"?"UPI ("+f.upi.trim()+")":"Cash",
+addr:dl?[f.house,f.area,f.landmark&&"near "+f.landmark,f.pin].filter(Boolean).join(", ")+(f.door?". Leave at the door.":""):"Pickup at the Spice Lane Kitchen counter"};
+S.order=o;S.cart=[];S.promo=false;save(o,"In progress");go("track");startTimer()},1800)}
+function startTimer(){clearTimeout(timer);const next=()=>{const o=S.order;if(!o||o.cancelled||o.stage>=3)return;
+timer=setTimeout(()=>{o.stage++;if(o.stage===3)save(o,"Completed");if(S.view==="track")trackUpdate(true);next()},o.stage===0?20000:9000)};next()}
+const names=o=>{const p=o.mode==="Pickup";return [["Order confirmed","The kitchen has your order. You can cancel until cooking starts."],["Preparing your food","Cooking fresh now."],[p?"Ready for pickup":"Out for delivery",p?"Give your order number at the counter.":o.rider+" is on the way."],[p?"Picked up":"Delivered","Enjoy your meal."]]};
+function eta(o){if(o.when!=="ASAP")return "Scheduled for "+o.when;const m=o.mode==="Pickup"?20:40;return (o.mode==="Pickup"?"Ready by ":"Arriving by ")+new Date(o.at+m*6e4).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}
+function trackView(){const o=S.order;main.innerHTML=`<h1>Order ${o.no}</h1><p class="sub">${o.mode} · ${money(o.total)} · ${esc(o.pay)}. Status changes every few seconds in this demo.</p>
+<div id="tp"></div><ol class="steps" aria-label="Order status steps" id="st"></ol><div id="det"></div><div id="bl"><h2>Items and bill</h2>${o.lines.map(l=>`<div class="row"><span>${l.q} × ${nm(l)}${lineD(l)}</span></div>`).join("")}${o.bill}</div>
+<p style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" type="button" id="again">Order something else</button><button class="btn" type="button" id="toOrders">My orders</button></p>`;trackUpdate(false)}
+function trackUpdate(announce){const o=S.order,n=names(o);
+if(o.cancelled){$("#tp").innerHTML="";$("#st").innerHTML="";$("#det").innerHTML=`<div class="note" role="status"><strong>Order cancelled.</strong> If you paid online, your refund arrives in 3–5 working days.</div>`;return}
+$("#st").innerHTML=n.map((s,i)=>{const st=i<o.stage?"done":i===o.stage?"now":"todo";return `<li data-s="${st}" ${st==="now"?'aria-current="step"':""}><span class="dot" aria-hidden="true">${st==="done"?"✓":i+1}</span><span>${s[0]}<span class="vh">${st==="done"?" (complete)":st==="now"?" (current)":" (upcoming)"}</span>${st==="now"?`<br><span style="font-weight:400">${s[1]}</span>`:""}</span></li>`}).join("");
+const pct=Math.round((o.stage+1)/4*100);$("#tp").innerHTML=`<div class="bar" role="progressbar" aria-label="Order progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div>`;
+let h=`<p><strong>${eta(o)}</strong></p><p class="sub">${esc(o.addr)}</p>`;
+if(o.stage===2&&o.mode==="Delivery")h+=`<div class="note" style="margin-bottom:12px">Share this code with ${o.rider} to receive your order: <strong>${o.otp}</strong></div>`;
+if(o.stage===0)h+=o.ask?`<div class="summary" role="group" aria-label="Confirm cancellation"><p style="margin-top:0">Cancel order ${o.no}? This cannot be undone.</p><button class="btn pri" data-yes type="button">Yes, cancel order</button> <button class="btn" data-no type="button">Keep order</button></div>`:`<button class="btn" data-cancel type="button">Cancel order</button>`;
+$("#det").innerHTML=h;if(announce)say(`Order ${o.no}: ${n[o.stage][0]}. ${n[o.stage][1]}`)}
+function ordersView(){const h=hist(),o=S.order;
+main.innerHTML=`<h1>My orders</h1><p class="sub">Your last 10 orders on this device.</p>${o&&!o.cancelled&&o.stage<3?`<p><button class="btn pri" type="button" id="toTrack">Track current order ${o.no}</button></p>`:""}
+${h.length?`<ul class="list">${h.map(x=>`<li class="item" style="grid-template-columns:1fr auto"><div><h3>Order ${x.no}</h3><p>${new Date(x.at).toLocaleString([],{dateStyle:"medium",timeStyle:"short"})} · ${money(x.total)} · ${x.status}</p><p>${x.lines.map(l=>l.q+" × "+nm(l)).join(", ")}</p></div><button class="btn" data-re="${x.no}" aria-label="Reorder ${x.no}">Reorder</button></li>`).join("")}</ul>`:`<p class="empty">No past orders yet. Your orders will appear here after you place one.</p>`}
+<p><button class="btn" type="button" id="back">Back to menu</button></p>`}
+document.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+if(d.add){addLine(+d.add);sync()}
+else if(d.cust)openOpt(+d.cust);
+else if(d.inc){lineQ(+d.inc,1);sync()}
+else if(d.dec){lineQ(+d.dec,-1);sync()}
+else if(d.cat){S.cat=d.cat;document.querySelectorAll("[data-cat]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cat===S.cat));list();say($("#rh").textContent)}
+else if(t.id==="veg"){S.veg=!S.veg;t.setAttribute("aria-pressed",S.veg);list();say($("#rh").textContent)}
+else if(t.id==="cartBtn"){cartBody();$("#cart").showModal()}
+else if(t.id==="cartClose")$("#cart").close();
+else if(t.id==="optCancel")$("#opt").close();
+else if(t.id==="toCheckout"){$("#cart").close();go("checkout")}
+else if(t.id==="back"||t.id==="again")go("menu");
+else if(t.id==="ordersBtn"||t.id==="toOrders")go("orders");
+else if(t.id==="toTrack")go("track");
+else if(d.re){const x=hist().find(h=>h.no===d.re);S.cart=x.lines.map(l=>({...l,uid:++S.uid}));go("menu");cartBody();$("#cart").showModal();say("Items from order "+x.no+" added to your cart")}
+else if(d.cancel||d.no){S.order.ask=!!d.cancel;trackUpdate(false);const b=document.querySelector(d.cancel?"[data-yes]":"[data-cancel]");b&&b.focus()}
+else if(d.yes){const o=S.order;o.cancelled=true;clearTimeout(timer);save(o,"Cancelled");trackUpdate(false);say(`Order ${o.no} cancelled`);$("#det").querySelector(".note").tabIndex=-1;$("#det").querySelector(".note").focus()}
+else if(t.id==="applyPromo"){const v=$("#promo").value.trim().toUpperCase();S.promo=v==="WELCOME10";$("#pm").textContent=S.promo?"WELCOME10 applied: 10% off.":"That code is not valid. Check the spelling and try again.";co();say($("#pm").textContent)}
+else if(t.id==="size"){const cur=parseInt(getComputedStyle(document.documentElement).fontSize)/16*100,nx=cur>=125?100:cur+12.5;document.documentElement.style.setProperty("--fs",nx+"%");t.setAttribute("aria-label",nx>=125?"Reset text size":"Increase text size");say("Text size "+nx+" percent")}
+else if(t.id==="theme"){const dk=t.getAttribute("aria-pressed")!=="true";t.setAttribute("aria-pressed",dk);t.textContent=dk?"Light mode":"Dark mode";document.documentElement.dataset.theme=dk?"dark":"light"}});
+$("#cart").addEventListener("click",e=>{if(e.target.id==="cart")e.target.close()});
+$("#cart").addEventListener("close",()=>$("#cartBtn").focus());
+$("#opt").addEventListener("close",()=>{const el=document.querySelector(`[data-k="i${$("#opt").dataset.id}+"]`);el&&el.focus()});
+document.addEventListener("input",e=>{const t=e.target;if(t.id==="q"){S.q=t.value;list()}else if(t.dataset.f){S.f[t.dataset.f]=t.value}});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.f)S.f[t.dataset.f]=t.value;
+if(t.id==="door")S.f.door=t.checked;
+if(["mode","pay","tip"].includes(t.name)&&t.form&&t.form.id==="f"){S.f[t.name]=t.name==="tip"?+t.value:t.value;vis();co();if(t.name==="tip"||t.name==="mode")say("Total is now "+money(totals().total))}});
+document.addEventListener("submit",e=>{e.preventDefault();
+if(e.target.id==="of"){const id=+e.target.dataset.id,fd=new FormData(e.target);$("#opt").dataset.id=id;addLine(id,{size:fd.get("size"),spice:fd.get("spice")||undefined,note:fd.get("onote").trim()||undefined});$("#opt").close();sync();return}
+if(!S.cart.length){say("Your cart is empty");return}const er=validate();er.length?showErr(er):place()});
+document.addEventListener("click",e=>{const a=e.target.closest(".summary a");if(a){e.preventDefault();const el=$(a.getAttribute("href"));el&&el.focus()}});
+go("menu");
+</script>
+</body>
+</html>
